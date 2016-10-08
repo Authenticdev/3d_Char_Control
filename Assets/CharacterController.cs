@@ -183,14 +183,17 @@ public class CharacterController : MonoBehaviour
                 fired = Time.time;
                 bulletSpawn = this.TargetRotation * damageSetting.bulletOffset;
                 bulletSpawn += this.transform.position;
-				casingSpawn = this.TargetRotation * damageSetting.casingOffset;
-				casingSpawn += this.transform.position;
 				GameObject bulletInstance = (GameObject)Instantiate(damageSetting.Bullet, bulletSpawn, Quaternion.identity);
-				//GameObject casingInstance = (GameObject)Instantiate(damageSetting.Casing, casingSpawn, this.targetRotation);
                 bulletInstance.GetComponent<Rigidbody>().AddForce(transform.forward * damageSetting.bulletSpeed);
-				//casingInstance.GetComponent<Rigidbody>().AddForce(transform.right * damageSetting.casingEjectSpeed);
+                AudioSource audio = GetComponent<AudioSource>();
+                audio.Play();
+                audio.Play(44100);
+                casingSpawn = this.TargetRotation * damageSetting.casingOffset;
+                casingSpawn += this.transform.position;
+                //GameObject casingInstance = (GameObject)Instantiate(damageSetting.Casing, casingSpawn, this.targetRotation);
+                //casingInstance.GetComponent<Rigidbody>().AddForce(transform.right * damageSetting.casingEjectSpeed);
 
-			}
+            }
         }
     }
 }
