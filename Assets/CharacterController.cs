@@ -19,6 +19,7 @@ public class CharacterController : MonoBehaviour
     public class PhysSettings
     {
         public float downAccel = 0.75f;
+        public float recoil_Force = 4f;
 
     }
 
@@ -190,8 +191,9 @@ public class CharacterController : MonoBehaviour
                 audio.Play(44100);
                 casingSpawn = this.TargetRotation * damageSetting.casingOffset;
                 casingSpawn += this.transform.position;
-                //GameObject casingInstance = (GameObject)Instantiate(damageSetting.Casing, casingSpawn, this.targetRotation);
-                //casingInstance.GetComponent<Rigidbody>().AddForce(transform.right * damageSetting.casingEjectSpeed);
+                this.GetComponent<Rigidbody>().AddForce(transform.forward*(physSetting.recoil_Force*-1));
+                GameObject casingInstance = (GameObject)Instantiate(damageSetting.Casing, casingSpawn, this.targetRotation);
+                casingInstance.GetComponent<Rigidbody>().AddForce(transform.right * damageSetting.casingEjectSpeed);
 
             }
         }
